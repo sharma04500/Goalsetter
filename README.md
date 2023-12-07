@@ -10,7 +10,7 @@
 - *Image Repository:* ECR
 - *Version Control, Remote Repo:* GIT, GitHub
 - *Kubernetes CLI:* Kubectl
-###### *KUBERNETES*
+##### *KUBERNETES:*
 - *Cluster:* AWS EKS
 - *Ingress:* AWS Application Load Balancer
 - *Storage Class:* Elastic File System
@@ -19,3 +19,5 @@
 - *DB Backups:* Cron Jobs
 - *DB Backup Store:* S3 Bucket
 - *Services Used:* ClusterIP, NodePort
+
+  > *Please refer to the attached architecture diagram for clear interpretation.*
