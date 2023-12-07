@@ -9,3 +9,17 @@ parameters:
   provisioningMode: efs-ap
   fileSystemId: 
   directoryPerms: "700"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cron-pvc
+  namespace: goalapp
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 1Gi

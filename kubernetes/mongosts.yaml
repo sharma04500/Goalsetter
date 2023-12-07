@@ -31,23 +31,6 @@ spec:
       labels:
         db: mongodb
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: backupdir
-                operator: In
-                values: 
-                - present
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: backupdir
-                operator: NotIn
-                values:
-                - absent
       containers:
       - name: mongodb
         image: 549825371516.dkr.ecr.ap-southeast-1.amazonaws.com/mongodb

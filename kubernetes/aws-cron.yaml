@@ -10,8 +10,6 @@ spec:
       template:
         spec:
           serviceAccountName: s3pushaccount
-          nodeSelector:
-            backupdir: present
           containers:
           - name: s3-push-job
             image: amazon/aws-cli:latest
@@ -24,6 +22,5 @@ spec:
               mountPath: /backups
           volumes:
           - name: backups
-            hostPath:
-              path: /backup/mongodb
-          restartPolicy: OnFailure
+            persistentVolumeClaim:
+              claimName: cron-pvc

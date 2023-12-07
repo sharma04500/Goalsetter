@@ -8,14 +8,18 @@ spec:
     spec:
       template:
         spec:
-          nodeSelector:
-            backupdir: Present
           containers:
           - name: mongodump
             image: mongo
             command:
             - /bin/sh
             - -c
-            - mongodump --uri mongodb://mongodb.goalapp.svc.cluster.local:27017
-            
+            - mongodump --uri mongodb://mongodb.goalapp.svc.cluster.local:27017 --out=/backups/mongo-`date +%F`
+            volumeMounts:
+            - name: backups
+              mountPath: /backups
           restartPolicy: OnFailure
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: cron-pvc
