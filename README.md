@@ -10,7 +10,7 @@
 - *Image Repository:* ECR
 - *Version Control, Remote Repo:* GIT, GitHub
 - *Kubernetes CLI:* Kubectl
-- **KUBERNETES:**
+ **KUBERNETES:**
 - *Cluster:* AWS EKS
 - *Ingress:* AWS Application Load Balancer
 - *Storage Class:* Elastic File System
