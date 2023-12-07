@@ -1,0 +1,78 @@
+#  Read the Description below, before applying this yaml!!!
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  selector:
+    db: mongodb
+  clusterIP: None
+  ports:
+  - port: 27017
+    targetPort: 27017
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  namespace: goalapp
+  labels:
+   for: goalapp 
+spec:
+  selector:
+    matchLabels:
+      db: mongodb
+  serviceName: mongodb
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        db: mongodb
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: backupdir
+                operator: In
+                values: 
+                - present
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: backupdir
+                operator: NotIn
+                values:
+                - absent
+      containers:
+      - name: mongodb
+        image: 549825371516.dkr.ecr.ap-southeast-1.amazonaws.com/mongodb
+        ports:
+        - containerPort: 27017
+          name: mongodb
+        volumeMounts:
+        - name: mongo
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 2Gi
+
+
+#   Please execute the following commands and add labels to the nodes before applying this yaml.
+# kubectl get no -o wide --show-labels to display the existing labels.
+# Add a label to one of the nodes viz., `kubectl label nodes <node name> backupdir=present`
+# Add the label to the other node viz., `kubectl label nodes <node name> backupdir=absent`
+# Login to the node with the label `backupdir=present node` and create a directory `/backup/mongodb`
+# with 777 perms to let the cron jobs execute seamlessly.
+
+# The DNS of the headless service to access mongoDB will be `mongodb.goalapp.svc.cluster.local:27017`
+# The Name resolution for the DNS happens only within the cluster.

@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: goalapp
+  labels:
+    app: application
+  namespace: goalapp
+spec:
+  type: ClusterIP
+  selector:
+    app: application
+  ports:
+  - protocol: TCP
+    port: 5000
+    name: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application
+  namespace: goalapp
+spec:
+  selector:
+    matchLabels:
+      app: application
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: application
+    spec:
+      containers:
+      - name: application
+        image: 549825371516.dkr.ecr.ap-southeast-1.amazonaws.com/goalapp:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        resources:
+        requests:
+          cpu: 700m
+          memory: 1Gi

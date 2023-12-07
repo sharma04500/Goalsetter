@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: awscli
+  namespace: goalapp
+spec:
+  schedule: "30 20 * * *"  # Everyday 2.30 AM in IST
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: s3pushaccount
+          nodeSelector:
+            backupdir: present
+          containers:
+          - name: s3-push-job
+            image: amazon/aws-cli:latest
+            command:
+            - /bin/sh
+            - -c
+            - aws s3 rsync /backups s3://mongoproject/ --recursive
+            volumeMounts:
+            - name: backups
+              mountPath: /backups
+          volumes:
+          - name: backups
+            hostPath:
+              path: /backup/mongodb
+          restartPolicy: OnFailure

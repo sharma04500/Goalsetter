@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mongo-backup
+spec:
+  schedule: "10 20 * * *"  # Everyday 02:10 AM in IST
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            backupdir: Present
+          containers:
+          - name: mongodump
+            image: mongo
+            command:
+            - /bin/sh
+            - -c
+            - mongodump --uri mongodb://mongodb.goalapp.svc.cluster.local:27017
+            
+          restartPolicy: OnFailure

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: goalapp
+
+#   Execute the following command to set the context to use "goalapp" as the default namespace instead of "default" 
+#                   kubectl config set-context --current --namespace=goalapp

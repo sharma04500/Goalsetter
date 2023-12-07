@@ -1,0 +1,42 @@
+pipeline{
+    agent{
+        label "ubuntu"
+    }
+    stages{
+        stage("Check for the Source Code"){
+            steps {
+                script {
+            if (!fileExists('/home/ubuntu/goalsetter')) {
+                sh "cd /home/ubuntu && git clone https://github.com/sharma04500/goalsetter.git"
+            }
+        }
+            }
+        }
+        stage("Pull latest version"){
+            steps {
+                sh "cd /home/ubuntu && git pull https://github.com/sharma04500/goalsetter.git || exit 1"
+            }
+        }
+        stage("Build the backend"){
+            steps {
+                sh "cd /home/ubuntu/goalsetter/Src-Code/ && sudo npm i"
+            }
+        }
+        stage("Build the frontend")
+            steps {
+                sh "cd /home/ubuntu/goalsetter/Src-Code/frontend && sudo npm i"
+            }
+        stage("Build Image")
+            steps {
+                sh "cd /home/ubuntu/goalsetter/Src-Code/ && docker build --no-cache . -t 549825371516.dkr.ecr.ap-southeast-1.amazonaws.com/goalapp:latest"
+            }
+        stage("Push to ECR")
+            steps {
+                sh "docker push 549825371516.dkr.ecr.ap-southeast-1.amazonaws.com/goalapp:latest"
+            }
+        stage("Rolling k8s Update")
+            steps {
+                sh "cd /home/ubuntu/goalsetter/kubernetes/ && kubectl apply -f application.yaml "
+            }
+    }
+}
