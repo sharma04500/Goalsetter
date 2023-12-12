@@ -63,5 +63,5 @@ variable "tags" {
 variable "key_name" {
   description = "key to be used for the ec2 instance."
   type        = string
-  default     = "singapore_key"
+  default     = "singapore"
 }
