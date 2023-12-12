@@ -29,6 +29,6 @@ subjects:
   - kind: ServiceAccount
     name: s3pushaccount
 roleRef:
-  - kind: Role
+    kind: Role
     name: s3pushrole
     apiGroup: rbac.authorization.k8s.io
