@@ -15,6 +15,6 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  profile = "default"
+  # No profile required while using GitHub Actions
   region  = "ap-southeast-1"
 }
