@@ -38,3 +38,4 @@ jobs:
           terraform init || terraform init -reconfigure || terraform init -migrate-state
           echo "Destroying the VPC..."
           terraform destroy -auto-approve
+          
