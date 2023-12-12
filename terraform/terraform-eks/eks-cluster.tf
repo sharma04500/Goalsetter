@@ -1,4 +1,4 @@
-resource "aws_eks_cluster" "javacluster" {
+resource "aws_eks_cluster" "goalcluster" {
   name     = var.clustername
   version  = var.k8sversion
   role_arn = var.clusterrole
@@ -17,7 +17,7 @@ resource "aws_eks_addon" "kube-proxy" {
   addon_version = "v1.28.2-eksbuild.2"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.javacluster ]
+  depends_on = [ aws_eks_cluster.goalcluster ]
 }
 
 resource "aws_eks_addon" "vpc-cni" {
@@ -26,7 +26,7 @@ resource "aws_eks_addon" "vpc-cni" {
   addon_version = "v1.15.4-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.javacluster ]
+  depends_on = [ aws_eks_cluster.goalcluster ]
 }
 
 resource "aws_eks_addon" "CoreDNS" {
@@ -35,7 +35,7 @@ resource "aws_eks_addon" "CoreDNS" {
   addon_version = "v1.10.1-eksbuild.6"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.javacluster, aws_eks_node_group.javagroup ]
+  depends_on = [ aws_eks_cluster.goalcluster, aws_eks_node_group.goalgroup ]
 }
 
 resource "aws_eks_addon" "Pod-Identity" {
@@ -44,5 +44,5 @@ resource "aws_eks_addon" "Pod-Identity" {
   addon_version = "v1.0.0-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.javacluster ]
+  depends_on = [ aws_eks_cluster.goalcluster ]
 }

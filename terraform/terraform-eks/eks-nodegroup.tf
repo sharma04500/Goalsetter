@@ -1,4 +1,4 @@
-resource "aws_eks_node_group" "javagroup" {
+resource "aws_eks_node_group" "goalgroup" {
   cluster_name    = var.clustername
   node_group_name = var.node_group_name
   node_role_arn   = var.node_role
@@ -13,5 +13,5 @@ resource "aws_eks_node_group" "javagroup" {
   update_config {
     max_unavailable = 1
   }
-  depends_on = [aws_eks_cluster.javacluster, aws_eks_addon.kube-proxy, aws_eks_addon.Pod-Identity, aws_eks_addon.vpc-cni]
+  depends_on = [aws_eks_cluster.goalcluster, aws_eks_addon.kube-proxy, aws_eks_addon.Pod-Identity, aws_eks_addon.vpc-cni]
 }

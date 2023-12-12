@@ -27,14 +27,14 @@ jobs:
       - name: Run Terraform destroy to bring down all the resources.
         run: |
           git clone https://github.com/sharma04500/Goalsetter
-          cd Goalsetter/terraform/terraform-vpc/
+          cd Goalsetter/terraform/terraform-eks/
           echo "initialising terraform..."
           terraform init || terraform init -reconfigure || terraform init -migrate-state
           echo "Destroying all the resources..."
           terraform destroy -auto-approve || exit 0
-          #sleep 60
-          #cd ../terraform-vpc/
-          #echo "initialising terraform..."
-          #terraform init || terraform init -reconfigure || terraform init -migrate-state
-          #echo "Destroying the VPC..."
-          #terraform destroy -auto-approve
+          sleep 60
+          cd ../terraform-vpc/
+          echo "initialising terraform..."
+          terraform init || terraform init -reconfigure || terraform init -migrate-state
+          echo "Destroying the VPC..."
+          terraform destroy -auto-approve
