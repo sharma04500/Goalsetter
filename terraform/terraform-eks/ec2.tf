@@ -2,7 +2,7 @@ resource "aws_instance" "goalinstance" {
     ami = var.ec2_ami
     instance_type = var.instance_type
     key_name = var.key_name
-    subnet_id = data.aws_subnet.sub-2
+    subnet_id = data.aws_subnet.sub-2.id
     tags = merge(
         var.tags, {
             "Name" = var.cf_name
