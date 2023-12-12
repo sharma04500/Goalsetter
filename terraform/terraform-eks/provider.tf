@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "tform-tfstate"
-    key = "eks/terraform.tfstate"
-    region = "ap-southeast-1"
+    bucket         = "tform-tfstate"
+    key            = "eks/terraform.tfstate"
+    region         = "ap-southeast-1"
     dynamodb_table = "eks-statefile"
   }
 }
@@ -16,5 +16,5 @@ terraform {
 provider "aws" {
   # Configuration options
   # No profile required while using GitHub Actions
-  region  = "ap-southeast-1"
+  region = "ap-southeast-1"
 }

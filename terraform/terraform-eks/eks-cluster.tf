@@ -12,37 +12,37 @@ resource "aws_eks_cluster" "goalcluster" {
 }
 
 resource "aws_eks_addon" "kube-proxy" {
-  cluster_name  = var.clustername
-  addon_name    = "kube-proxy"
-  addon_version = "v1.28.2-eksbuild.2"
+  cluster_name                = var.clustername
+  addon_name                  = "kube-proxy"
+  addon_version               = "v1.28.2-eksbuild.2"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.goalcluster ]
+  depends_on = [aws_eks_cluster.goalcluster]
 }
 
 resource "aws_eks_addon" "vpc-cni" {
-  cluster_name  = var.clustername
-  addon_name    = "vpc-cni"
-  addon_version = "v1.15.4-eksbuild.1"
+  cluster_name                = var.clustername
+  addon_name                  = "vpc-cni"
+  addon_version               = "v1.15.4-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.goalcluster ]
+  depends_on = [aws_eks_cluster.goalcluster]
 }
 
 resource "aws_eks_addon" "CoreDNS" {
-  cluster_name  = var.clustername
-  addon_name    = "coredns"
-  addon_version = "v1.10.1-eksbuild.6"
+  cluster_name                = var.clustername
+  addon_name                  = "coredns"
+  addon_version               = "v1.10.1-eksbuild.6"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.goalcluster, aws_eks_node_group.goalgroup ]
+  depends_on = [aws_eks_cluster.goalcluster, aws_eks_node_group.goalgroup]
 }
 
 resource "aws_eks_addon" "Pod-Identity" {
-  cluster_name  = var.clustername
-  addon_name    = "eks-pod-identity-agent"
-  addon_version = "v1.0.0-eksbuild.1"
+  cluster_name                = var.clustername
+  addon_name                  = "eks-pod-identity-agent"
+  addon_version               = "v1.0.0-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 
-  depends_on = [ aws_eks_cluster.goalcluster ]
+  depends_on = [aws_eks_cluster.goalcluster]
 }

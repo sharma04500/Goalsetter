@@ -48,8 +48,8 @@ variable "node_ami" {
 
 variable "ec2_ami" {
   description = "ami for ec2 instance"
-  type = string
-  default = "i-0f64a0886803478fe"
+  type        = string
+  default     = "ami-078c1149d8ad719a7"
 }
 
 variable "tags" {
@@ -62,6 +62,6 @@ variable "tags" {
 
 variable "key_name" {
   description = "key to be used for the ec2 instance."
-  type = string
-  default = "singapore_key"
+  type        = string
+  default     = "singapore_key"
 }
