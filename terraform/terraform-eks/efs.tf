@@ -17,21 +17,21 @@ resource "aws_efs_file_system" "goalapp" {
 
 resource "aws_efs_mount_target" "mount1" {
     file_system_id = aws_efs_file_system.goalapp.id
-    subnet_id = data.aws_subnet.sub-1
+    subnet_id = data.aws_subnet.sub-1.id
 
     depends_on = [ aws_efs_file_system.goalapp ]
 }
 
 resource "aws_efs_mount_target" "mount2" {
     file_system_id = aws_efs_file_system.goalapp.id
-    subnet_id = data.aws_subnet.sub-2
+    subnet_id = data.aws_subnet.sub-2.id
 
     depends_on = [ aws_efs_file_system.goalapp ]
 }
 
 resource "aws_efs_mount_target" "mount3" {
     file_system_id = aws_efs_file_system.goalapp.id
-    subnet_id = data.aws_subnet.sub-3
+    subnet_id = data.aws_subnet.sub-3.id
 
     depends_on = [ aws_efs_file_system.goalapp ]
 }
