@@ -5,6 +5,7 @@ metadata:
   labels:
      for: mongodb
 provisioner: efs.csi.aws.com
+reclaimPolicy: Retain
 parameters:
   provisioningMode: efs-ap
   fileSystemId: 
