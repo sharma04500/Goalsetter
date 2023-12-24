@@ -13,15 +13,16 @@ spec:
           containers:
           - name: s3-push-job
             image: amazon/aws-cli:latest
-            command:
-            - /bin/sh
-            - -c
-            - aws s3 rsync /backups s3://mongoproject/ --recursive
             volumeMounts:
             - name: backups
-              mountPath: /backups
+              mountPath: ~/backups
+            command:
+            - s3 sync ~/backups s3://mongoproject/backups --delete
           restartPolicy: OnFailure
           volumes:
           - name: backups
             persistentVolumeClaim:
               claimName: cron-pvc
+
+
+# docker run --rm -it -v ~/.aws:/root/.aws -v ~/mongodb:/root/mongodb --name aws amazon/aws-cli s3 sync ~/mongodb s3://dupmongotest/mongodb --delete

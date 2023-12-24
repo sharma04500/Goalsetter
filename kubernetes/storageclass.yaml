@@ -1,14 +1,16 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: goal-sc
+  name: goal-mongo-sc
   labels:
-     for: goalapp
+     for: mongodb
 provisioner: efs.csi.aws.com
 parameters:
   provisioningMode: efs-ap
   fileSystemId: 
-  directoryPerms: "700"
+  directoryPerms: "755"
+  posixUser: "999"
+  posixGroup: "999"
 
 ---
 apiVersion: v1
@@ -19,7 +21,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: efs-sc
+  storageClassName: goal-mongo-sc
   resources:
     requests:
       storage: 1Gi

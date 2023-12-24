@@ -14,10 +14,10 @@ spec:
             command:
             - /bin/sh
             - -c
-            - mongodump --uri mongodb://mongodb.goalapp.svc.cluster.local:27017 --out=/backups/mongo-`date +%F`
+            - mongodump --uri mongodb://mongodb.goalapp.svc.cluster.local:27017 --out=~/backups/mongo-`date +%F`
             volumeMounts:
             - name: backups
-              mountPath: /backups
+              mountPath: ~/backups
           restartPolicy: OnFailure
           volumes:
           - name: backups
