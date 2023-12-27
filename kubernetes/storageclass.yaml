@@ -10,8 +10,8 @@ parameters:
   provisioningMode: efs-ap
   fileSystemId: "fs-041ad3df07469889f"
   directoryPerms: "755"
-  posixUser: "999"
-  posixGroup: "999"
+  posixUser: "0"
+  posixGroup: "0"
 
 ---
 apiVersion: v1
