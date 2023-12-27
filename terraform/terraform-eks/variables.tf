@@ -37,7 +37,7 @@ variable "node_role" {
 variable "instance_type" {
   description = "instance_type to be used for creating the cluster."
   type        = string
-  default     = "t3.large"
+  default     = "t3.medium"
 }
 
 variable "node_ami" {
